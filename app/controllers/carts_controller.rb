@@ -1,5 +1,4 @@
 class CartsController < ApplicationController
-  before_filter :authorize
   def show
     if cart.size == 0
       render 'empty_show'
