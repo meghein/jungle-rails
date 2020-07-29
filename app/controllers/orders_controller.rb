@@ -2,6 +2,8 @@ class OrdersController < ApplicationController
   before_filter :authorize
   def show
     @order = Order.find(params[:id])
+    puts("--------------------------")
+    puts(@order.email)
   end
 
   def create
@@ -30,7 +32,7 @@ class OrdersController < ApplicationController
     Stripe::Charge.create(
       source:      params[:stripeToken],
       amount:      cart_subtotal_cents,
-      description: "Khurram Virani's Jungle Order",
+      description: "Jungle Order",
       currency:    'cad'
     )
   end
@@ -53,6 +55,7 @@ class OrdersController < ApplicationController
       )
     end
     order.save!
+    # UserMailer.with(user, order).order_confirmation.deliver_now
     order
   end
 
